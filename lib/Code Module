@@ -1,0 +1,695 @@
+// Dots Indicator Code -->>
+
+Widget _dots(){
+    return SizedBox(
+      height: 15.0,
+      child: DotsIndicator(
+        dotsCount: 4,
+        position: currentIndex,
+        decorator: DotsDecorator(
+          color: Colors.black45,
+          activeColor: Colors.green,
+          activeSize: const Size(19.0, 8.0),
+          activeShape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5.0)
+          ),
+          spacing: const EdgeInsets.all(2.0),
+        ),
+      ),
+    );
+  }
+
+// Floating Action Button comes under Scaffold Widget---->>
+FloatingActionButton(
+          elevation: 5,
+          backgroundColor: Colors.green,
+          onPressed: () {
+            showMenu(
+              color: Colors.greenAccent,
+              context: context,
+              position: const RelativeRect.fromLTRB(100, 100, 0, 0),
+              items: [
+                PopupMenuItem(
+                  child: ListTile(
+                    leading: Icon(MdiIcons.cartVariant),
+                    title: const Text('Shopping Cart'),
+                    onTap: () {
+                      Navigator.pop(context); // Close the menu
+                      _launchURL('https://pub.dev/packages/url_launcher/example');
+                    },
+                  ),
+                ),
+                PopupMenuItem(
+                  child: ListTile(
+                    leading: Icon(MdiIcons.accountCreditCard),
+                    title: const Text('Checkout'),
+                    onTap: () {
+                      Navigator.pop(context); // Close the menu
+                      _launchURL('https://example.com/shopping_cart');
+                    },
+                  ),
+                ),
+                PopupMenuItem(
+                  child: ListTile(
+                      leading: Icon(MdiIcons.accountDetails),
+                      title: const Text('My Profile'),
+                      onTap: () => setState(() {
+                        Navigator.pop(context); // Close the menu
+                        _launchURL('https://docs.google.com/');
+                      })
+                  ),
+                ),
+
+              ],
+            );
+          },
+          child: const Icon(
+            Icons.menu,
+            color: Colors.white,
+            size: 30,
+          ),
+        ),
+
+// Gridview list
+
+class _ShowScreenState extends State<ShowScreen> {
+  int currentIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: <Widget>[
+        _carasoul(),  // Image Carousel widget
+        //_dots(),    // Dots_Indicator under Image Carousel
+        const SizedBox(
+          height: 10.0,
+        ),
+
+        const Padding(
+          padding: EdgeInsets.only(left: 8.0, bottom: 8.0),
+          child: Text(
+            "TOP CATEGORIES",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
+          ),
+        ),
+        Expanded(
+          child: GridView.count(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            crossAxisCount: 2,
+            mainAxisSpacing: 2,
+            children: <Widget>[
+              _firstImage(), // 1st GidView Image
+              _secondImage(), // 2nd GidView Image
+              _thirdImage(), // 3rd GidView Image
+              _fourthImage(), // 4th GidView Image
+              _fifthImage(),
+              _sixthImage(),
+              _seventhImage(),
+              _eightImage(),
+              _nineImage(),
+              _tenthImage(),
+              _eleventhImage(),
+              _twelevethImage(),
+            ],
+          ),
+        ),
+
+        const SizedBox(
+          height: 20,
+        )
+      ],
+    );
+
+  }
+
+
+  Widget _carasoul(){
+    return CarouselSlider(
+      items: [
+        //1st Image
+        Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("images/carasoul1.jpeg"),
+                fit: BoxFit.fill,
+              )),
+        ),
+        // 2nd Image
+        Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("images/carasoul2.jpeg"),
+                fit: BoxFit.fill,
+              )),
+        ),
+        //3rd Image
+        Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("images/Carasoul3.png"),
+                fit: BoxFit.fill,
+              )),
+        ),
+        //4h Image
+        Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("images/Carasoul4.jpg"),
+                fit: BoxFit.fill,
+              )),
+        ),
+      ],
+      options: CarouselOptions(
+        height: 200, // Set height to occupy the full screen
+        viewportFraction: 1.0, // Set viewportFraction to 1.0 for full-screen carousel
+        autoPlay: true, // Enable auto-play
+        autoPlayCurve: Curves.decelerate, // Set the auto-play curve
+        autoPlayInterval: const Duration(seconds: 3),
+        autoPlayAnimationDuration: const Duration(milliseconds: 500), // Set the auto-play animation duration
+        initialPage: 0,
+        onPageChanged: (index, reason) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
+        aspectRatio: 16 / 9, //Set the aspect ratio of each item
+        // You can also customize other options such as enlargeCenterPage, enableInfiniteScroll, etc.
+      ),
+    );
+  }
+
+  Widget _firstImage(){
+    return InkWell(
+      onTap: () {
+        // Navigate to the Baby Care page when the grid item is clicked
+        Navigator.push(context,
+          MaterialPageRoute(
+            builder: (context) => BabyCareProductPage(),
+          ),
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.only(bottom: 10.0),
+        height: 250,
+        width: 200,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(2),
+          border: Border.all(color: Colors.black12, width: 1),
+        ),
+        child: Stack(
+          alignment: AlignmentDirectional.center,
+          fit: StackFit.expand,
+          children: [
+            Image.asset(
+              "images/BABY_CARE.png",
+              height: 200,
+              semanticLabel: "Baby Care",
+            ),
+            const Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Padding(
+                padding: EdgeInsets.only(top: 9.0),
+                child: Text(
+                  "Baby Care",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _secondImage(){
+    return InkWell(
+      onTap: () {
+        // Navigate to the Baby Care page when the grid item is clicked
+        Navigator.push(context,
+          MaterialPageRoute(
+            builder: (context) => BabyCareProductPage(),
+          ),
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.only(bottom: 9.0),
+        height: 250,
+        width: 200,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(2),
+          border: Border.all(color: Colors.black12, width: 1),
+        ),
+        child: Stack(
+          alignment: AlignmentDirectional.center,
+          fit: StackFit.expand,
+          children: [
+            Image.network("http://japanstore.thebizsolutions.com/image/cache/catalog/category/CLEANING%20003-190x140-190x140-190x140.png"),
+            const Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Padding(
+                padding: EdgeInsets.only(top: 9.0),
+                child: Text(
+                  "Cleaning & Household",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _thirdImage(){
+    return InkWell(
+      onTap: () {
+        // Navigate to the Baby Care page when the grid item is clicked
+        Navigator.push(context,
+          MaterialPageRoute(
+            builder: (context) => BabyCareProductPage(),
+          ),
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.only(bottom: 9.0),
+        height: 250,
+        width: 200,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(2),
+          border: Border.all(color: Colors.black12, width: 1),
+        ),
+        child: Stack(
+          alignment: AlignmentDirectional.center,
+          fit: StackFit.expand,
+          children: [
+            Image.network("http://japanstore.thebizsolutions.com/image/cache/catalog/category/daily%20need%20002-190x140-190x140-190x140.png"),
+            const Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Padding(
+                padding: EdgeInsets.only(top: 9.0),
+                child: Text(
+                  "Daily Needs",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _fourthImage(){
+    return InkWell(
+      onTap: () {
+        // Navigate to the Baby Care page when the grid item is clicked
+        Navigator.push(context,
+          MaterialPageRoute(
+            builder: (context) => BabyCareProductPage(),
+          ),
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.only(bottom: 9.0),
+        height: 250,
+        width: 200,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(2),
+          border: Border.all(color: Colors.black12, width: 1),
+        ),
+        child: Stack(
+          alignment: AlignmentDirectional.center,
+          fit: StackFit.expand,
+          children: [
+            Image.network("http://japanstore.thebizsolutions.com/image/cache/catalog/category/BakeryCakesDairy%20PNG-190x140-190x140-190x140.png"),
+            const Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Padding(
+                padding: EdgeInsets.only(top: 9.0),
+                child: Text(
+                  "Dairy & Bakery",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+/// Onboarding Page
+PageView(
+        children: [
+          Container(
+            color: Colors.amber,
+            child: const Center(child: Text("First Onboarding Image")),
+          ),
+          Container(
+            color: Colors.red,
+            child: const Center(child: Text("Second Onboarding Image")),
+          ),
+          Container(
+            color: Colors.blue,
+            child: const Center(child: Text("Third Onboarding Image")),
+          ),
+
+        ],
+      )
+
+
+
+// import 'package:flutter/material.dart';
+// import 'package:japan_store/webview1.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+//
+// class WelcomeCarsouel extends StatefulWidget {
+//   const WelcomeCarsouel({super.key});
+//
+//   @override
+//   State<WelcomeCarsouel> createState() => _WelcomeCarsouelState();
+// }
+//
+// class _WelcomeCarsouelState extends State<WelcomeCarsouel> {
+//   final controller = PageController();
+//   bool isLastPage = false;
+//   List<Widget> pages = [
+//     Container(
+//         child: const Image(
+//       image: AssetImage("images/binary-code-abstract-lu-.jpg"),
+//       fit: BoxFit.cover,
+//       filterQuality: FilterQuality.high,
+//     )),
+//     Container(
+//         child: const Image(
+//       image: AssetImage("images/vue-js-kk.jpg"),
+//       fit: BoxFit.cover,
+//       filterQuality: FilterQuality.high,
+//     )),
+//     Container(
+//         child: const Image(
+//       image: AssetImage("images/linux-penguin.jpg"),
+//       fit: BoxFit.cover,
+//       filterQuality: FilterQuality.high,
+//     )),
+//   ];
+//
+//   @override
+//   void dispose() {
+//     super.dispose();
+//
+//     controller.dispose();
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: Colors.transparent,
+//       body: Container(
+//         padding: const EdgeInsets.only(bottom: 80),
+//         child: PageView(
+//           controller: controller,
+//           onPageChanged: (index) {
+//             // Check whether it's a last page or not
+//             setState(() {
+//               isLastPage = index == pages.length - 1;
+//             });
+//           },
+//           children: pages,
+//         ),
+//       ),
+//       bottomSheet: isLastPage
+//           ? TextButton(
+//               onPressed: () async {
+//                 SharedPreferences prefs = await SharedPreferences.getInstance();
+//                 prefs.setBool('showHome', true);
+//                 Navigator.of(context).pushReplacement(
+//                   MaterialPageRoute(
+//                     builder: (_) => const webview1(),
+//                   ),
+//                 );
+//               },
+//               style: TextButton.styleFrom(
+//                   shape: RoundedRectangleBorder(
+//                       borderRadius: BorderRadius.circular(0.0)),
+//                   foregroundColor: Colors.white,
+//                   backgroundColor: Colors.teal,
+//                   minimumSize: const Size.fromHeight(80)),
+//               child: const Text("Let's Get Started",
+//                   style: TextStyle(
+//                     fontSize: 24,
+//                     fontWeight: FontWeight.bold,
+//                   ),
+//                   textAlign: TextAlign.center),
+//             )
+//           : Container(
+//               padding: const EdgeInsets.symmetric(horizontal: 10),
+//               height: 80,
+//               child: Row(
+//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                 mainAxisSize: MainAxisSize.max,
+//                 children: [
+//                   TextButton(
+//                     onPressed: () {
+//                       Navigator.of(context).pushReplacement(
+//                         MaterialPageRoute(
+//                           builder: (_) => const webview1(),
+//                         ),
+//                       );
+//                     },
+//                     child: Container(
+//                         padding: const EdgeInsets.all(10),
+//                         decoration: BoxDecoration(
+//                             shape: BoxShape.rectangle,
+//                             color: Colors.lightGreenAccent,
+//                             borderRadius: BorderRadius.circular(10)),
+//                         child: const Text(
+//                           "Skip",
+//                           style: TextStyle(
+//                               fontSize: 20, fontWeight: FontWeight.w600),
+//                         )),
+//                   ),
+//                   Center(
+//                     child: SmoothPageIndicator(
+//                       controller: controller,
+//                       count: 3,
+//                       effect: const WormEffect(
+//                         spacing: 10,
+//                         type: WormType.underground,
+//                         dotColor: Colors.grey,
+//                         activeDotColor: Colors.blueAccent,
+//                       ),
+//                       onDotClicked: (index) => controller.animateToPage(
+//                         index,
+//                         duration: const Duration(milliseconds: 500),
+//                         curve: Curves.easeIn,
+//                       ),
+//                     ),
+//                   ),
+//                   TextButton(
+//                     onPressed: () {
+//                       controller.nextPage(
+//                         duration: const Duration(milliseconds: 500),
+//                         curve: Curves.easeInOut,
+//                       );
+//                     },
+//                     child: Container(
+//                       padding: const EdgeInsets.all(10),
+//                       decoration: BoxDecoration(
+//                           shape: BoxShape.rectangle,
+//                           color: Colors.lightGreenAccent,
+//                           borderRadius: BorderRadius.circular(10)),
+//                         child: const Text("Next",
+//                           style: TextStyle(
+//                               fontSize: 20, fontWeight: FontWeight.w600),
+//                         ),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//     );
+//   }
+// }
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:japan_store/Staple_Food_Screen.dart';
+import 'package:japan_store/webview1.dart';
+
+class CustomErrorPage extends StatefulWidget {
+  const CustomErrorPage({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _CustomErrorPageState();
+}
+
+class _CustomErrorPageState extends State<CustomErrorPage> {
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
+  bool isRefreshing = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
+    return Scaffold(
+        body: RefreshIndicator(
+          triggerMode: RefreshIndicatorTriggerMode.onEdge,
+          onRefresh: () => _refreshData(),
+         key: _refreshIndicatorKey,
+         color: Colors.white,
+          backgroundColor: Colors.blue,
+          strokeWidth: 4.0,
+         child: Stack(
+           children: [
+           Image(
+             image: const AssetImage("images/maintainance_new.png"),
+             width: screenWidth,
+             height: screenHeight,
+             filterQuality: FilterQuality.high,
+             fit: BoxFit.cover,
+           ),
+           Positioned(
+             bottom: screenHeight / 2.5,
+             left: screenWidth / 7,
+             child: const Center(
+               child: Text(
+                 "We Are Under Maintainance",
+                 style: TextStyle(
+                   fontWeight: FontWeight.bold,
+                   fontSize: 25,
+                 ),
+               ),
+             ),
+           ),
+           Positioned(
+             bottom: screenHeight / 2.7,
+             right: screenWidth / 2.9,
+             child: const Center(
+               child: Text(
+                 "Will be back soon!",
+                 style: TextStyle(
+                     fontWeight: FontWeight.w500,
+                     fontSize: 16,
+                     color: Colors.black87),
+               ),
+             ),
+           ),
+
+           // CLose Icon
+           Positioned(
+             bottom: screenHeight / 7,
+             right: screenWidth / 2.8,
+             child: ElevatedButton(
+               style: ElevatedButton.styleFrom(
+                 backgroundColor: Colors.redAccent,
+               ),
+               child: const Text(
+                 "Close",
+                 style: TextStyle(
+                   fontSize: 20,
+                   fontWeight: FontWeight.bold,
+                   color: Colors.white,
+                 ),
+               ),
+                onPressed: () => setState(() {
+                  SystemChannels.platform
+                      .invokeMethod<void>('SystemNavigator.pop');
+                }),
+           ),
+           ),
+
+           // Refresh Icon
+           Positioned(
+             bottom: screenHeight / 4,
+             right: screenWidth / 3.2,
+             child: ElevatedButton(
+               style: ElevatedButton.styleFrom(
+                 backgroundColor: Colors.blueAccent,
+               ),
+               child: const Text(
+                 "Try Again!",
+                 style: TextStyle(
+                   fontSize: 20,
+                   fontWeight: FontWeight.bold,
+                   color: Colors.white,
+                 ),
+               ),
+               onPressed: () => _refreshData(),
+             ),
+           ),
+         ],
+         ),
+    ));
+  }
+
+  Future<void> _refreshData() async {
+    isRefreshing = true;
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Staple_Food_Screen()));// Replace this delay with the code to be executed during refresh
+    return Future<void>.delayed(const Duration(seconds: 4)); // Simulating refresh
+  }
+}
+
+
+              // // CLose Icon
+              // Align(
+              //   alignment: Alignment.center,
+              //   child: Container(
+              //     padding: EdgeInsets.only(top: Get.height*0.6, right: 15),
+              //     child: Positioned(
+              //       bottom: Get.height*0.1,
+              //       right: Get.width*0.4,
+              //       child: ElevatedButton(
+              //         style: ElevatedButton.styleFrom(
+              //           backgroundColor: Colors.redAccent,
+              //         ),
+              //         onPressed: CangoBack(),
+              //         child: const Text(
+              //           "Close",
+              //           style: TextStyle(
+              //             fontSize: 20,
+              //             fontWeight: FontWeight.bold,
+              //             color: Colors.white,
+              //           ),
+              //         )
+              //       ),
+              //     ),
+              //   ),
+              // ),
